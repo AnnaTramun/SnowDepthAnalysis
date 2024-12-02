@@ -64,7 +64,7 @@ MSI_fun_single <- function(data, refperiod_start, refperiod_end) {
     mutate(pSD = ifelse(SD >= p50_SD, 1, 0)) %>%
     mutate(countSD = ifelse(pSD == 1, sequence(rle(as.character(pSD))$lengths), 0),
            diff = ifelse(pSD == 1, round((SD - p50_SD), digits = 2), 0)) %>%
-  group_by(winseason, countSD > 3) %>%
+  group_by(winseason, countSD >= 3) %>%
   mutate(SD_i = sum(diff)) %>%
   ungroup()
   
